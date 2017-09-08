@@ -10,18 +10,17 @@
             android:id="@+id/nav_items"
             android:icon="@drawable/ic_playlist_add_black_24dp"
             android:title="Items" />
-        <item
-            android:id="@+id/nav_Reports_analysis"
-            android:icon="@drawable/ic_grain_black_24dp"
-            android:title="Manager's Reports " />
+
         <item
             android:id="@+id/nav_transactions"
             android:icon="@drawable/ic_compare_arrows_black_24dp"
             android:title="Transactions" />
+
         <item
-            android:id="@+id/nav_receipts"
-            android:icon="@drawable/ic_receipt_black_24dp"
-            android:title="Receipts" />
+            android:id="@+id/nav_Reports_analysis"
+            android:icon="@drawable/ic_grain_black_24dp"
+            android:title="Reports " />
+
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings_black_24dp"

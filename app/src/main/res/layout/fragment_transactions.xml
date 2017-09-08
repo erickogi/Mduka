@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/sell_bar_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!--<RelativeLayout-->
+                <Button
+
+                    android:id="@+id/chooseDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="4dp"
+                    android:layout_marginTop="4dp"
+
+                    android:background="@drawable/rounded_border_accent"
+                    android:text="Choose Date"
+                    android:textColor="@color/whitetext">
+
+                </Button>
+
+                <!--android:id="@+id/sell_bar"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+
+                <android.support.v7.widget.SearchView
+                    android:id="@+id/search_bar"
+                    android:layout_width="match_parent"
+
+                    android:layout_height="40dp"
+
+                    android:background="@drawable/rounded_border_transaparent" />
+                <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+
+                <!--android:background="@color/line" />-->
+                <TextView
+                    android:id="@+id/details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:padding="2dp"
+                    android:text="Trans : 6 , Bp : 32000 , Sp : 40000 , P : 8000"
+                    android:textColor="@color/blacktext"
+                    android:textSize="12sp" />
+                <!--<ImageButton-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--style="?android:attr/borderlessButtonStyle"-->
+                <!--android:id="@+id/button_list"-->
+                <!--android:src="@drawable/ic_list_black_24dp"-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_height="50dp" />-->
+
+
+                <!--</RelativeLayout>-->
+
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+        <LinearLayout
+            android:id="@+id/empty_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="No Items To Display  " />
+
+            <!--<ImageButton-->
+            <!--android:id="@+id/add_items"-->
+            <!--android:layout_gravity="center"-->
+            <!--app:srcCompat="@drawable/ic_add_black_24dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab"-->
+    <!--android:layout_marginBottom="40dp"-->
+    <!--android:layout_alignParentEnd="true"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_margin="@dimen/fab_margin"-->
+    <!--app:srcCompat="@android:drawable/ic_input_add" />-->
+</RelativeLayout>

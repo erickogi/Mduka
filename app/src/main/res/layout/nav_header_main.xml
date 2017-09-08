@@ -14,11 +14,10 @@
 
     <ImageView
 
-        android:id="@+id/imageView"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/ic_person_outline_black_24dp" />
+        app:srcCompat="@drawable/ic_person_outline_black_24dp" />
 
     <TextView
         android:layout_width="match_parent"

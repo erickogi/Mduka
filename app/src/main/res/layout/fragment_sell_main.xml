@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/sell_bar_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+
+                android:layout_height="40dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                android:orientation="vertical">
+
+                <TextView
+
+                    android:id="@+id/textView_charge"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rounded_border_accent"
+                    android:clickable="true"
+                    android:fitsSystemWindows="true"
+                    android:gravity="center_vertical"
+                    android:text="Charge 0.0 "
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+
+                <!--<TextView-->
+                <!--android:fitsSystemWindows="true"-->
+
+                <!--android:gravity="center_vertical"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:textSize="25sp"-->
+                <!--android:text="Items  0"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textAlignment="center"-->
+
+                <!--android:clickable="true"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp" />-->
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.SearchView
+                    android:id="@+id/search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+
+                    android:layout_toStartOf="@+id/button_list"
+
+                    android:background="@drawable/rounded_border_transaparent" />
+
+                <ImageButton
+
+                    android:id="@+id/button_list"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="50dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    app:srcCompat="@drawable/ic_list_black_24dp" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+
+                android:background="@color/line" />
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                app:tabSelectedTextColor="@color/blacktext"
+
+                app:tabTextColor="@color/blacktext" />
+
+            <android.support.v4.view.ViewPager
+
+
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

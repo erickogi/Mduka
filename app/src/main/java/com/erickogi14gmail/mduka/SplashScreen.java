@@ -1,12 +1,12 @@
 package com.erickogi14gmail.mduka;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 public class SplashScreen extends AppCompatActivity {
-    private static  int spalsh_time_out=3000;
+    private static int spalsh_time_out = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
