@@ -1,6 +1,7 @@
 package com.erickogi14gmail.mduka.Sell;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +24,10 @@ import com.erickogi14gmail.mduka.Items.fragment_items;
 import com.erickogi14gmail.mduka.R;
 import com.erickogi14gmail.mduka.utills.RecyclerTouchListener;
 import com.erickogi14gmail.mduka.utills.StaggeredHiddingScrollListener;
-import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
+
+//import com.roughike.bottombar.BottomBar;
 
 /**
  * Created by Eric on 8/28/2017.
@@ -44,7 +47,7 @@ public class fragment_sell extends Fragment {
     private Context context;
     private ImageButton imageButton;
     private CardView cardview;
-    private BottomBar bottomNavigationView;
+    // private BottomBar bottomNavigationView;
     private Fragment fragment = null;
     private TextView textView;
     private LinearLayout linearLayoutEmpty;
@@ -61,6 +64,35 @@ public class fragment_sell extends Fragment {
         // bottomNavigationView.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
         f.showViews();
     }
+
+    private void populateItemsDb() {
+
+        ArrayList<StockItemsPojo> data = new ArrayList<>();
+        for (int a = 0; a < 40; a++) {
+            StockItemsPojo stockItems1 = new StockItemsPojo(a, "TestItem" + a, "1000", "pcs", "17000", "35000", "Category" + a, "0", "", "0");
+            // StockItemsPojo stockItemsPojo2=new StockItemsPojo()
+            data.add(stockItems1);
+        }
+        DbOperations dbOperations = new DbOperations(getApplicationContext());
+        for (StockItemsPojo s : data) {
+            if (dbOperations.insertItem(s)) {
+                Log.d("itemsFilled", "oneF");
+            }
+        }
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("testItems", Context.MODE_PRIVATE);
+
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+
+        editor.putBoolean("testItemsFilled", true);
+
+
+        editor.apply();
+
+    }
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -97,6 +129,8 @@ public class fragment_sell extends Fragment {
         } else {
             linearLayoutEmpty.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
+            populateItemsDb();
+            sellListAdapter.updateList(dbOperations.getAllItems(search));
         }
         imageButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +153,7 @@ public class fragment_sell extends Fragment {
 
     public void updateList(String search) {
         sellListAdapter.updateList(dbOperations.getAllItems(search));
+        f.updateItemFv();
     }
 
     @Nullable
@@ -166,6 +201,8 @@ public class fragment_sell extends Fragment {
                     dbOperations.updateQuantityOfItemInCart(stockItemsPojos.get(position).getItem_id(),
                             String.valueOf(newQuantity),
                             String.valueOf(total_price), String.valueOf(total_bp));
+
+
                     dbOperations.updateItemQuantity(item_id, String.valueOf(initial_item_quantity - 1));
 
                     try {
@@ -173,6 +210,7 @@ public class fragment_sell extends Fragment {
                             updateList(f.getSearchText());
                         } else {
                             sellListAdapter.updateItemItem(position, dbOperations.getAllItems("").get(position));
+                            f.updateItemFv();
                         }
                     } catch (NullPointerException m) {
                         updateList(f.getSearchText());
@@ -187,6 +225,7 @@ public class fragment_sell extends Fragment {
                             updateList(f.getSearchText());
                         } else {
                             sellListAdapter.updateItemItem(position, dbOperations.getAllItems("").get(position));
+                            f.updateItemFv();
                         }
                     } catch (NullPointerException m) {
                         updateList(f.getSearchText());
@@ -204,6 +243,11 @@ public class fragment_sell extends Fragment {
 
 
         return view;
+    }
+
+
+    public void updateItemInList() {
+
     }
 
 

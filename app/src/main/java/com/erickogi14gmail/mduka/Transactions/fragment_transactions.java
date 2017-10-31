@@ -87,7 +87,6 @@ public class fragment_transactions extends Fragment {
 
     }
 
-
     public String getSearchText() {
         try {
             return search.getQuery().toString();
@@ -150,8 +149,13 @@ public class fragment_transactions extends Fragment {
         }));
         SearchManager manager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
 
-        SearchView search = (SearchView) view.findViewById(R.id.search_bar);
-
+        final SearchView search = (SearchView) view.findViewById(R.id.search_bar);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search.setIconified(false);
+            }
+        });
         search.setSearchableInfo(manager.getSearchableInfo(getActivity().getComponentName()));
 
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -178,6 +182,7 @@ public class fragment_transactions extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        setView(true, getContext());
         fab = controller.fab(getActivity(), false, ic_input_add);
 
     }
@@ -259,4 +264,13 @@ public class fragment_transactions extends Fragment {
 
         timePickerDialog.show();
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        setView(true, getContext());
+//
+//
+//    }
+
 }

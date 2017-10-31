@@ -6,8 +6,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.erickogi14gmail.mduka.Db.DbOperations;
+import com.muddzdev.styleabletoastlibrary.StyleableToast;
 
 import java.util.ArrayList;
 
@@ -31,7 +33,6 @@ public class Controller {
         }
         return fab;
     }
-
 
     public Spinner setUpSpinner(Context context, int spinnerId, View view, int pos) {
         ArrayList<String> categories = new ArrayList<>();
@@ -66,4 +67,20 @@ public class Controller {
         fab.show();
     }
 
+
+    public void toast(String msg, Context context, int icon) {
+        StyleableToast st = new StyleableToast(context, msg, Toast.LENGTH_SHORT);
+        st.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+
+        st.setTextColor(context.getResources().getColor(R.color.whitetext));
+        try {
+            st.setIcon(icon);
+
+
+            st.setMaxAlpha();
+            st.show();
+        } catch (Exception m) {
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+        }
+    }
 }

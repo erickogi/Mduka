@@ -41,7 +41,7 @@ public class SellListAdapter extends RecyclerView.Adapter<SellListAdapter.MyView
     }
 
     public Bitmap getThumbnail(String filename) {
-        Bitmap thumnail = null;
+        Bitmap thumnail = BitmapFactory.decodeResource(context.getResources(), R.drawable.mobisell);
         try {
             File filepath = context.getFileStreamPath(filename);
             FileInputStream fi = new FileInputStream(filepath);

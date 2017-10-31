@@ -1,9 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_receipt"
+        android:icon="@drawable/ic_shopping_cart_white_24dp"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="Items"
+
+        app:showAsAction="always" />
+    <!--<item-->
+    <!--android:id="@+id/action_clear"-->
+    <!--android:icon="@drawable/ic_remove_shopping_cart_black_24dp"-->
+    <!--android:orderInCategory="100"-->
+    <!--android:title="Items"-->
+
+    <!--app:showAsAction="always" />-->
+
+
+    <!--<item-->
+    <!--android:id="@+id/action_notifications"-->
+    <!--android:icon="@drawable/ic_notifications_black_24dp"-->
+    <!--android:orderInCategory="100"-->
+    <!--android:title="Items"-->
+
+    <!--app:showAsAction="always" />-->
+
+    <!--<item-->
+    <!--android:id="@+id/action_sync"-->
+    <!--android:icon="@drawable/ic_sync_black_24dp"-->
+    <!--android:orderInCategory="100"-->
+    <!--android:title="Items"-->
+
+    <!--app:showAsAction="always" />-->
+    <!--<item-->
+    <!--android:id="@+id/action_settings"-->
+    <!--android:orderInCategory="100"-->
+    <!--android:title="@string/action_settings"-->
+    <!--app:showAsAction="never" />-->
 </menu>

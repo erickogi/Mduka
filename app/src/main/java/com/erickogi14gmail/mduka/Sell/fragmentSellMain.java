@@ -22,12 +22,15 @@ import android.widget.TextView;
 import com.erickogi14gmail.mduka.Controller;
 import com.erickogi14gmail.mduka.Db.DbOperations;
 import com.erickogi14gmail.mduka.R;
-import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import q.rorbin.badgeview.QBadgeView;
+
 import static com.erickogi14gmail.mduka.R.drawable.ic_shopping_cart_white_24dp;
+
+//import com.roughike.bottombar.BottomBar;
 
 /**
  * Created by Eric on 8/29/2017.
@@ -36,27 +39,62 @@ import static com.erickogi14gmail.mduka.R.drawable.ic_shopping_cart_white_24dp;
 public class fragmentSellMain extends Fragment {
     static boolean isListView = true;
     private DbOperations dbOperations;
-    private fragment_sell f;
+    private fragment_sell mfragmentSell;
+    private fragment_favorites mfragmentFav;
     private View view;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private ImageButton imageButton;
     private CardView cardview;
-    private BottomBar bottomNavigationView;
+    // private BottomBar bottomNavigationView;
     private Fragment fragment = null;
     private TextView textView;
     private SearchView search;
     private FloatingActionButton fab;
     private Controller controller;
 
+
+    public void updateItemFv() {
+        // mfragmentSell = (fragment_sell) getChildFragmentManager().findFragmentByTag(getFragmentTag(0));
+        mfragmentFav = (fragment_favorites) getChildFragmentManager().findFragmentByTag(getFragmentTag(1));
+        mfragmentFav.setView(getContext(), getSearchText());
+    }
+
+    public void updateItemsSell() {
+        mfragmentSell = (fragment_sell) getChildFragmentManager().findFragmentByTag(getFragmentTag(0));
+        //mfragmentFav=(fragment_favorites)getChildFragmentManager().findFragmentByTag(getFragmentTag(1));
+        mfragmentSell.setView(getContext(), getSearchText());
+    }
+
+
+
     public void setCharge() {
+        int itemsCountInCart = dbOperations.getNoOfItemsInCart();
         textView.setText("Cash  " + String.valueOf(dbOperations.sumOfTotalPricesOfItemsInCart()));
+        try {
+            View view = getActivity().findViewById(R.id.action_receipt);
+            if (itemsCountInCart > 0) {
+                new QBadgeView(getActivity()).bindTarget(view).setBadgeNumber(itemsCountInCart);
+                new QBadgeView(getActivity()).bindTarget(textView).setBadgeText(String.valueOf(itemsCountInCart));
+            } else {
+                new QBadgeView(getActivity()).bindTarget(view).setBadgeText(String.valueOf(itemsCountInCart)).setBadgeBackgroundColor(R.color.colorAccent);
+                new QBadgeView(getActivity()).bindTarget(textView).setBadgeText(String.valueOf(itemsCountInCart)).setBadgeBackgroundColor(R.color.colorAccent);
+
+    }
+            //
+
+        } catch (IllegalStateException m) {
+
+        }
+        //new QBadgeView(getActivity()).bindTarget(fab).setBadgeNumber(itemsCountInCart);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        f = (fragment_sell) getChildFragmentManager().findFragmentByTag(getFragmentTag(0));
+        mfragmentSell = (fragment_sell) getChildFragmentManager().findFragmentByTag(getFragmentTag(0));
+        mfragmentFav = (fragment_favorites) getChildFragmentManager().findFragmentByTag(getFragmentTag(1));
+        setCharge();
         dbOperations = new DbOperations(getContext());
         controller = new Controller();
     }
@@ -116,16 +154,19 @@ public class fragmentSellMain extends Fragment {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                f = (fragment_sell) getChildFragmentManager().findFragmentByTag(getFragmentTag(0));
+                mfragmentSell = (fragment_sell) getChildFragmentManager().findFragmentByTag(getFragmentTag(0));
+                mfragmentFav = (fragment_favorites) getChildFragmentManager().findFragmentByTag(getFragmentTag(1));
                 if (isListView) {
                     isListView = false;
-                    f.setView(getActivity(), getSearchText());
+                    mfragmentSell.setView(getActivity(), getSearchText());
+                    mfragmentFav.setView(getActivity(), getSearchText());
 
                     imageButton.setImageResource(R.drawable.ic_apps_black_24dp);
 
                 } else {
                     isListView = true;
-                    f.setView(getActivity(), getSearchText());
+                    mfragmentSell.setView(getActivity(), getSearchText());
+                    mfragmentFav.setView(getActivity(), getSearchText());
 
                     imageButton.setImageResource(R.drawable.ic_list_black_24dp);
                 }
@@ -138,7 +179,13 @@ public class fragmentSellMain extends Fragment {
 
             SearchManager manager = (SearchManager) getContext().getSystemService(Context.SEARCH_SERVICE);
 
-            SearchView search = (SearchView) view.findViewById(R.id.search_bar);
+            final SearchView search = (SearchView) view.findViewById(R.id.search_bar);
+            search.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    search.setIconified(false);
+                }
+            });
 
             search.setSearchableInfo(manager.getSearchableInfo(getActivity().getComponentName()));
 
@@ -155,8 +202,8 @@ public class fragmentSellMain extends Fragment {
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     try {
-                        f = (fragment_sell) getChildFragmentManager().findFragmentByTag(getFragmentTag(0));
-                        f.updateList(newText);
+                        mfragmentSell = (fragment_sell) getChildFragmentManager().findFragmentByTag(getFragmentTag(0));
+                        mfragmentSell.updateList(newText);
                     } catch (Exception m) {
 
                     }

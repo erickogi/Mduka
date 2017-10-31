@@ -17,21 +17,22 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.erickogi14gmail.mduka.Controller;
 import com.erickogi14gmail.mduka.Db.DbOperations;
 import com.erickogi14gmail.mduka.Db.StockItemsPojo;
 import com.erickogi14gmail.mduka.R;
-import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 
+//import com.pes.androidmaterialcolorpickerdialog.ColorPicker;
+
 public class ItemDetails extends AppCompatActivity {
     private final int CAMERA_REQUEST = 1888;
+    private String imagePath = "1";
     private ArrayList<StockItemsPojo> stockItemsPojos;
     private int position;
     private EditText editTextItem_name, editText_ItemSp, editTextItem_bp, editTextItem_discount, editTextItem_quantity, editTextItem_unit;
@@ -41,7 +42,7 @@ public class ItemDetails extends AppCompatActivity {
     private ArrayList<String> categories = new ArrayList<>();
     private ImageView imgC, img;
     private Dialog dialog;
-    private String imagePath = "1";
+
     private boolean forUpdate = false;
     private Controller controller;
 
@@ -49,7 +50,6 @@ public class ItemDetails extends AppCompatActivity {
         return !(editTextItem_name.getText().toString().equals("")
                 || editText_ItemSp.getText().toString().equals("")
                 || editTextItem_bp.getText().toString().equals("")
-                || editTextItem_discount.getText().toString().equals("")
                 || editTextItem_quantity.getText().toString().equals("")
                 || editTextItem_unit.getText().toString().equals(""));
     }
@@ -67,7 +67,7 @@ public class ItemDetails extends AppCompatActivity {
         editTextItem_name = (EditText) findViewById(R.id.item_name);
         editText_ItemSp = (EditText) findViewById(R.id.item_sp);
         editTextItem_bp = (EditText) findViewById(R.id.item_bp);
-        editTextItem_discount = (EditText) findViewById(R.id.item_discount);
+
         editTextItem_quantity = (EditText) findViewById(R.id.item_quantity);
         editTextItem_unit = (EditText) findViewById(R.id.item_unit);
         img = (ImageView) findViewById(R.id.item_image);
@@ -76,7 +76,8 @@ public class ItemDetails extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (editTextItem_name.getText().toString().equals("")) {
-                    Toast.makeText(ItemDetails.this, "Enter product details First", Toast.LENGTH_SHORT).show();
+                    controller.toast("Emter Product Details First", ItemDetails.this, R.drawable.ic_error_outline_black_24dp);
+
                 } else {
                     Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(cameraIntent, CAMERA_REQUEST);
@@ -94,7 +95,7 @@ public class ItemDetails extends AppCompatActivity {
             spinner.setAdapter(simpleAdapter);
             int size = categories.size();
             spinner.setSelection(size - 1);
-            //spinner=controller.setUpSpinner(getApplicationContext(),R.id.spinner_category,imageButton.getRootView());
+
         } catch (NullPointerException m) {
             m.printStackTrace();
             ArrayList<String> c = new ArrayList<>();
@@ -108,13 +109,14 @@ public class ItemDetails extends AppCompatActivity {
         Intent intent = getIntent();
         position = intent.getIntExtra("dataPosition", 0);
         stockItemsPojos = (ArrayList<StockItemsPojo>) intent.getSerializableExtra("data");
+        forUpdate = intent.getBooleanExtra("update", false);
         try {
             editTextItem_name.setText(stockItemsPojos.get(position).getItem_name());
             editText_ItemSp.setText(stockItemsPojos.get(position).getItem_selling_price());
             editTextItem_bp.setText(stockItemsPojos.get(position).getItem_buying_price());
             editTextItem_quantity.setText(stockItemsPojos.get(position).getItem_quantity());
             editTextItem_unit.setText(stockItemsPojos.get(position).getItem_unit_type());
-            editTextItem_discount.setText(stockItemsPojos.get(position).getItem_discount());
+
 
             for (int a = 0; a < categories.size(); a++) {
                 if (categories.get(a).equalsIgnoreCase(stockItemsPojos.get(position).getItem_category())) {
@@ -122,9 +124,6 @@ public class ItemDetails extends AppCompatActivity {
                 }
 
             }
-            forUpdate = true;
-
-
         } catch (NullPointerException m) {
             m.printStackTrace();
         }
@@ -138,28 +137,10 @@ public class ItemDetails extends AppCompatActivity {
             img.setImageResource(R.drawable.ic_dashboard_black_24dp);
         }
 
-
-    }
-
-
-    public void colorChooser(View view) {
-
-        final ColorPicker cp = new ColorPicker(ItemDetails.this);
-        cp.show();
-        Button okColor = (Button) cp.findViewById(R.id.okColorButton);
-        okColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int sc = cp.getColor();
-                imgC.setBackgroundColor(sc);
-                cp.dismiss();
-            }
-        });
-
     }
 
     public Bitmap getThumbnail(String filename) {
-        Bitmap thumnail = null;
+        Bitmap thumnail = BitmapFactory.decodeResource(ItemDetails.this.getResources(), R.drawable.mobisell);
         try {
             File filepath = this.getFileStreamPath(filename);
             FileInputStream fi = new FileInputStream(filepath);
@@ -180,7 +161,8 @@ public class ItemDetails extends AppCompatActivity {
             fos.close();
             return true;
         } catch (Exception m) {
-            Toast.makeText(this, "not sac" + m.getMessage(), Toast.LENGTH_SHORT).show();
+            controller.toast("Error Storing Image", ItemDetails.this, R.drawable.ic_error_outline_black_24dp);
+            //  Toast.makeText(this, "not sac" + m.getMessage(), Toast.LENGTH_SHORT).show();
             m.printStackTrace();
             return false;
         }
@@ -193,7 +175,8 @@ public class ItemDetails extends AppCompatActivity {
 
             img.setImageBitmap(sb);
             if (storeImage(sb)) {
-                Toast.makeText(this, "stored", Toast.LENGTH_SHORT).show();
+                controller.toast("Image Retrieved Successfully", ItemDetails.this, R.drawable.ic_done_black_24dp);
+                // Toast.makeText(this, "stored", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -209,19 +192,20 @@ public class ItemDetails extends AppCompatActivity {
                 StockItemsPojo su = new StockItemsPojo(stockItemsPojos.get(position).getItem_id(), editTextItem_name.getText().toString()
                         , editTextItem_quantity.getText().toString(), editTextItem_unit.getText().toString(),
                         editTextItem_bp.getText().toString(), editText_ItemSp.getText().toString(), spinner.getSelectedItem().toString()
-                        , editTextItem_discount.getText().toString(), imagePath);
+                        , "0", imagePath);
                 updateItem(su);
             } else {
                 StockItemsPojo si = new StockItemsPojo(1, editTextItem_name.getText().toString()
                         , editTextItem_quantity.getText().toString(), editTextItem_unit.getText().toString(),
                         editTextItem_bp.getText().toString(), editText_ItemSp.getText().toString(), spinner.getSelectedItem().toString()
-                        , editTextItem_discount.getText().toString(), imagePath);
+                        , "0", imagePath);
                 insertNew(si);
             }
 
 
         } else {
-            Toast.makeText(this, "Empty Fields Detected", Toast.LENGTH_SHORT).show();
+            controller.toast("Empty Fields Detected", ItemDetails.this, R.drawable.ic_error_outline_black_24dp);
+            //Toast.makeText(this, "Empty Fields Detected", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -239,7 +223,8 @@ public class ItemDetails extends AppCompatActivity {
                     edtSearch.setError("Field Cannot be Empty");
                 } else {
                     if (dbOperations.insertCategory(edtSearch.getText().toString())) {
-                        Toast.makeText(ItemDetails.this, "Category Inserted", Toast.LENGTH_SHORT).show();
+                        controller.toast("New Category Insertes", ItemDetails.this, R.drawable.ic_done_black_24dp);
+                        //Toast.makeText(ItemDetails.this, "Category Inserted", Toast.LENGTH_SHORT).show();
 
                         ArrayList<String> categories = new ArrayList<String>();
                         categories = dbOperations.getAllCategories1();
@@ -266,7 +251,7 @@ public class ItemDetails extends AppCompatActivity {
             editTextItem_name.setText("");
             editText_ItemSp.setText("");
             editTextItem_bp.setText("");
-            editTextItem_discount.setText("");
+            //  editTextItem_discount.setText("");
             editTextItem_quantity.setText("");
             editTextItem_unit.setText("");
             spinner.setSelection(0);
@@ -275,9 +260,11 @@ public class ItemDetails extends AppCompatActivity {
 
 
             // fragment_items.updateItems(getApplicationContext());
-            Toast.makeText(this, "Item Inserted Successfully", Toast.LENGTH_SHORT).show();
+            controller.toast("Item Inserted Successfully", ItemDetails.this, R.drawable.ic_done_black_24dp);
+            //  Toast.makeText(this, "Item Inserted Successfully", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Error Insertng Item", Toast.LENGTH_SHORT).show();
+            controller.toast("Error Inserting Item", ItemDetails.this, R.drawable.ic_error_outline_black_24dp);
+            // Toast.makeText(this, "Error Insertng Item", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -286,7 +273,7 @@ public class ItemDetails extends AppCompatActivity {
             editTextItem_name.setText("");
             editText_ItemSp.setText("");
             editTextItem_bp.setText("");
-            editTextItem_discount.setText("");
+            //  editTextItem_discount.setText("");
             editTextItem_quantity.setText("");
             editTextItem_unit.setText("");
             spinner.setSelection(0);
@@ -295,9 +282,11 @@ public class ItemDetails extends AppCompatActivity {
 
 
             //fragment_items.updateItems(getApplicationContext());
-            Toast.makeText(this, "Item Updated Successfully", Toast.LENGTH_SHORT).show();
+            controller.toast("Item Updated Successfully", ItemDetails.this, R.drawable.ic_done_black_24dp);
+            // Toast.makeText(this, "Item updated Successfully", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Error Updating Item", Toast.LENGTH_SHORT).show();
+            controller.toast("Error Updating Item", ItemDetails.this, R.drawable.ic_error_outline_black_24dp);
+            // Toast.makeText(this, "Error updating Item", Toast.LENGTH_SHORT).show();
         }
     }
 }

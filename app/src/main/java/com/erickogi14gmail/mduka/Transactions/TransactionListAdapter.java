@@ -43,7 +43,8 @@ public class TransactionListAdapter extends RecyclerView.Adapter<TransactionList
         TransactionsPojo transactionsPojo = modelList.get(position);
         holder.textViewId.setText("Tr.No : " + String.valueOf(transactionsPojo.getTransaction_id()));
         holder.textViewItems.setText(transactionsPojo.getTransaction_quantity() + "  Items");
-        holder.textViewDate.setText(transactionsPojo.getTransaction_date());
+        // holder.textViewDate.setText(transactionsPojo.getTransaction_date());
+        holder.textViewDate.setText(transactionsPojo.getTransaction_time());
         holder.textViewPrice.setText("Ksh  " + transactionsPojo.getTransaction_total_sp());
 
     }

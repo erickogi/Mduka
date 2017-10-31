@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,31 +16,33 @@ import com.erickogi14gmail.mduka.R;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
  * Created by Eric on 8/28/2017.
  */
 
-public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> {
+class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<StockItemsPojo> modelList;
+    private itemsClickListener clickListener;
 
-    public ItemsAdapter(Context context, ArrayList<StockItemsPojo> modelList) {
+    ItemsAdapter(Context context, ArrayList<StockItemsPojo> modelList, itemsClickListener clickListener) {
         this.context = context;
         this.modelList = modelList;
+        this.clickListener = clickListener;
     }
 
     @Override
     public ItemsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = null;
-
         itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_s_layout, parent, false);
-        return new MyViewHolder(itemView);
+        return new MyViewHolder(itemView, clickListener);
     }
 
-    public Bitmap getThumbnail(String filename) {
-        Bitmap thumnail = null;
+    private Bitmap getThumbnail(String filename) {
+        Bitmap thumnail = BitmapFactory.decodeResource(context.getResources(), R.drawable.mobisell);
         try {
             File filepath = context.getFileStreamPath(filename);
             FileInputStream fi = new FileInputStream(filepath);
@@ -48,6 +51,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         } catch (Exception m) {
             m.printStackTrace();
         }
+
+
         return thumnail;
     }
 
@@ -58,7 +63,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         holder.txtItemQuantity.setText("Qty : " + stockItemsPojo.getItem_quantity() + "  " + stockItemsPojo.getItem_unit_type());
         holder.txtItemPrice.setText("Sp @ : " + stockItemsPojo.getItem_selling_price() + "  Kshs");
         holder.txtItemBuyingPrice.setText("Bp @ : " + stockItemsPojo.getItem_buying_price() + "  Kshs");
-        holder.txtDiscount.setText("Discount : " + stockItemsPojo.getItem_discount() + "  %");
+        //holder.txtDiscount.setText("Discount : " + stockItemsPojo.getItem_discount() + "  %");
         holder.txtCategory.setText("Cat.. : " + stockItemsPojo.getItem_category());
         holder.txtProfit.setText("Profit : " + String.valueOf(Double.valueOf(stockItemsPojo.getItem_selling_price()) - Double.valueOf(stockItemsPojo.getItem_buying_price())));
         try {
@@ -78,7 +83,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
 
         } catch (Exception m) {
 
-            holder.imgItemImage.setImageResource(R.drawable.ic_dashboard_black_24dp);
+            holder.imgItemImage.setImageResource(R.drawable.mobisell);
         }
     }
 
@@ -97,28 +102,74 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
         notifyDataSetChanged();
     }
 
-    public void updateItemItem(int position, StockItemsPojo stockItemsPojo) {
+    void updateItemItem(int position, StockItemsPojo stockItemsPojo) {
         modelList.get(position).setFav(stockItemsPojo.getFav());
         notifyItemChanged(position);
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtItemName, txtItemQuantity, txtItemPrice, txtItemBuyingPrice, txtDiscount, txtProfit, txtCategory;
-        ImageView imgItemImage, imgFav;
+        ImageView imgItemImage, imgFav, imgMore;
+        Button btnDelete, btnEdit;
+        private WeakReference<itemsClickListener> listenerWeakReference;
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(View itemView, itemsClickListener clickListener) {
             super(itemView);
+            listenerWeakReference = new WeakReference<itemsClickListener>(clickListener);
+
             txtItemName = (TextView) itemView.findViewById(R.id.item_name);
             txtItemQuantity = (TextView) itemView.findViewById(R.id.item_quantity);
             txtItemPrice = (TextView) itemView.findViewById(R.id.item_price);
 
             txtItemBuyingPrice = (TextView) itemView.findViewById(R.id.item_buying_price);
-            txtDiscount = (TextView) itemView.findViewById(R.id.item_discount);
+            // txtDiscount = (TextView) itemView.findViewById(R.id.item_discount);
             txtProfit = (TextView) itemView.findViewById(R.id.item_profit);
 
             txtCategory = (TextView) itemView.findViewById(R.id.item_category);
             imgItemImage = (ImageView) itemView.findViewById(R.id.item_image);
             imgFav = (ImageView) itemView.findViewById(R.id.img_fav);
+            imgMore = (ImageView) itemView.findViewById(R.id.icon_more);
+
+            btnDelete = (Button) itemView.findViewById(R.id.btn_delete);
+            btnEdit = (Button) itemView.findViewById(R.id.btn_edit);
+
+
+            imgFav.setOnClickListener(this);
+            imgMore.setOnClickListener(this);
+
+            btnEdit.setOnClickListener(this);
+            btnDelete.setOnClickListener(this);
+
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_delete:
+                    listenerWeakReference.get().onBtnDeleteClicked(getAdapterPosition());
+
+
+                    break;
+                case R.id.btn_edit:
+                    listenerWeakReference.get().onBtnEditClicked(getAdapterPosition());
+
+
+                    break;
+                case R.id.img_fav:
+                    listenerWeakReference.get().onFavIconClicked(getAdapterPosition());
+
+
+                    break;
+                case R.id.icon_more:
+                    listenerWeakReference.get().onBtnMoreClicked(getAdapterPosition(), v);
+
+
+                    break;
+
+
+            }
+
         }
     }
 }

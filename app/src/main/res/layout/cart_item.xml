@@ -19,6 +19,7 @@
 
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -39,14 +40,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="6dp"
                         android:text="Item Name X 7"
-                        android:textColor="@color/blacktext" />
+                        android:textColor="@color/blacktext"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/item_price"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="'@ 300 Ksh"
-                        android:textColor="@color/blacktext" />
+                        android:textColor="@color/blacktext"
+                        android:textSize="16sp" />
 
 
                 </LinearLayout>
@@ -61,14 +64,45 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="6000 ksh"
-                        android:textColor="@color/blacktext" />
+                        android:textColor="@color/blacktext"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
 
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/layout_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <Button
+                    android:id="@+id/btn_remove"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimaryDark"
+                    android:padding="2dp"
+                    android:text="@string/remove_item" />
+
+                <Button
+                    android:id="@+id/btn_change"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimaryDark"
+                    android:padding="2dp"
+                    android:text="@string/change_quantity" />
+            </LinearLayout>
+
 
             <View
+
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"

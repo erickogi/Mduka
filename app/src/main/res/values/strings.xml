@@ -8,4 +8,23 @@
     <string name="title_activity_item_details">Product</string>
     <string name="title_activity_transaction_details">Transaction</string>
     <string name="title_activity_reports">Reports</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Etiam eget ligula eu lectus lobortis condimentum.</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="pic">Pic</string>
+    <string name="save">Save</string>
+    <string name="item_unit_of_measure_ie_kgs">Item Unit Of Measure ie Kgs</string>
+    <string name="item_quantity">Item Quantity</string>
+    <string name="item_buying_price">Item Buying Price</string>
+    <string name="item_selling_price">Item Selling Price</string>
+    <string name="choose_category">Choose Category</string>
+    <string name="item_name">Item Name</string>
+    <string name="change_quantity">Change Quantity</string>
+    <string name="remove_item">Remove Item</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="enter_mobile_no">Enter Mobile No</string>
+    <string name="click_above_to_change_profile_photo">Click above to change Profile Photo</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="last_name_hint">Last Name</string>
+    <string name="email_hint">Email</string>
 </resources>

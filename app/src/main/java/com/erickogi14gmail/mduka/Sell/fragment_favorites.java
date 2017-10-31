@@ -22,9 +22,10 @@ import com.erickogi14gmail.mduka.Items.fragment_items;
 import com.erickogi14gmail.mduka.R;
 import com.erickogi14gmail.mduka.utills.RecyclerTouchListener;
 import com.erickogi14gmail.mduka.utills.StaggeredHiddingScrollListener;
-import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
+
+//import com.roughike.bottombar.BottomBar;
 
 /**
  * Created by Eric on 8/29/2017.
@@ -44,7 +45,7 @@ public class fragment_favorites extends Fragment {
     private Context context;
     private ImageButton imageButton;
     private CardView cardview;
-    private BottomBar bottomNavigationView;
+    //   private BottomBar bottomNavigationView;
     private Fragment fragment = null;
     private TextView textView;
     private LinearLayout linearLayoutEmpty;
@@ -119,6 +120,7 @@ public class fragment_favorites extends Fragment {
 
     public void updateList(String search) {
         sellListAdapter.updateList(dbOperations.getAllItemFavorites(search));
+        f.updateItemsSell();
     }
 
     @Nullable
@@ -171,8 +173,10 @@ public class fragment_favorites extends Fragment {
                     try {
                         if (initial_item_quantity - 1 == 0.0) {
                             updateList(f.getSearchText());
+
                         } else {
                             sellListAdapter.updateItemItem(position, dbOperations.getAllItemFavorites("").get(position));
+                            f.updateItemsSell();
                         }
                     } catch (NullPointerException m) {
                         updateList(f.getSearchText());
@@ -186,7 +190,9 @@ public class fragment_favorites extends Fragment {
                         if (initial_item_quantity - 1 == 0.0) {
                             updateList(f.getSearchText());
                         } else {
+
                             sellListAdapter.updateItemItem(position, dbOperations.getAllItemFavorites("").get(position));
+                            f.updateItemsSell();
                         }
                     } catch (NullPointerException m) {
                         updateList(f.getSearchText());

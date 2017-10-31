@@ -56,7 +56,8 @@ public class DbClass extends SQLiteOpenHelper {
             "  `transaction_items` varchar NOT NULL," +
             "  `transaction_total_sp` varchar NOT NULL," +
             "  `transaction_total_bp` varchar NOT NULL," +
-            "  `transaction_quantity` varchar NOT NULL"
+            "  `transaction_quantity` varchar NOT NULL," +
+            "  `transaction_time` datetime NOT NULL"
 
 
             + ")";

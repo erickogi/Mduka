@@ -53,12 +53,12 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_margin="4dp"
-                android:background="@drawable/rounded_border_accent"
+                android:background="@drawable/rect_border_transaparent"
                 android:gravity="center"
                 android:text="Balance"
                 android:textAlignment="center"
                 android:textColor="@color/whitetext"
-                android:textSize="15dp" />
+                android:textSize="15sp" />
 
 
             <android.support.design.widget.TextInputLayout
@@ -71,8 +71,9 @@
                 <EditText
                     android:id="@+id/cashin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:background="@drawable/rounded_border_transaparent"
+
                     android:hint="Receive Cash"
                     android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
@@ -90,17 +91,18 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
                     android:layout_weight="1"
-                    android:background="@color/colorAccent"
+                    android:background="@drawable/rounded_border_accent"
                     android:text="Back"
                     android:textColor="@color/whitetext" />
 
                 <Button
+
                     android:id="@+id/btn_finish"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="4dp"
                     android:layout_weight="1"
-                    android:background="@color/colorAccent"
+                    android:background="@drawable/rounded_border_accent"
                     android:text="Finish"
                     android:textColor="@color/whitetext" />
             </LinearLayout>

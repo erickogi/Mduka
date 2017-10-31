@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "9300465382",
+    "firebase_url": "https://mduka-52649.firebaseio.com",
+    "project_id": "mduka-52649",
+    "storage_bucket": "mduka-52649.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9300465382:android:da1d194d4b8923a3",
+        "android_client_info": {
+          "package_name": "com.erickogi14gmail.mduka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9300465382-jbec5uogim6uph9vkoluarhb1btc7gq3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.erickogi14gmail.mduka",
+            "certificate_hash": "e0491424e67c5cefd7fcaf4157d6fccb2aecb848"
+          }
+        },
+        {
+          "client_id": "9300465382-pc291ejvbko5lgo32kagnsbq7rml9djr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClpMxtSrFIJxieikJOVnWTUvKJg6qe3xk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9300465382-pc291ejvbko5lgo32kagnsbq7rml9djr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

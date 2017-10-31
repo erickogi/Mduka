@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.erickogi14gmail.mduka.Login.Login">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+
+        android:layout_centerHorizontal="true"
+        android:fitsSystemWindows="true"
+        android:padding="@dimen/login_screen_logo_padding"
+        android:scaleType="centerCrop"
+        android:src="@drawable/mobisell"
+        app:civ_border_color="@android:color/white"
+        app:civ_border_width="1dp" />
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/img_logo"></FrameLayout>
+
+
+</RelativeLayout>

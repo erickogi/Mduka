@@ -78,27 +78,35 @@ public class Receipt {
         PdfContentByte canvas = writer.getDirectContentUnder();
         // Image image=Image.
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bgi);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        Image img = null;
         try {
-            img = Image.getInstance(stream.toByteArray());
-            img.setAbsolutePosition(0, 0);
-            img.scaleAbsolute(PageSize.A5);
-        } catch (BadElementException m) {
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bgi);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+
+
+            Image img = null;
+            try {
+                img = Image.getInstance(stream.toByteArray());
+                img.setAbsolutePosition(0, 0);
+                img.scaleAbsolute(PageSize.A5);
+            } catch (BadElementException m) {
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            canvas.saveState();
+            PdfGState state = new PdfGState();
+            state.setFillOpacity(0.1f);
+
+            canvas.addImage(img);
+            canvas.restoreState();
+
+        } catch (OutOfMemoryError error) {
+            error.printStackTrace();
         }
-
-        canvas.saveState();
-        PdfGState state = new PdfGState();
-        state.setFillOpacity(0.1f);
-
-        canvas.addImage(img);
-        canvas.restoreState();
 
 
         PdfPTable header = new PdfPTable(3);

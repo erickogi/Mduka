@@ -61,8 +61,10 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="2dp"></android.support.v7.widget.RecyclerView>
+                android:layout_marginBottom="103dp"
+                android:layout_marginTop="2dp">
+
+            </android.support.v7.widget.RecyclerView>
 
         </android.support.v7.widget.CardView>
     </LinearLayout>
@@ -70,10 +72,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:gravity="bottom"
-        android:orientation="horizontal">
+        android:orientation="vertical">
         <!--<Button-->
         <!--android:textColor="@color/whitetext"-->
         <!--android:text="Back"-->
@@ -83,11 +85,22 @@
         <!--android:layout_height="wrap_content" />-->
         <Button
             android:id="@+id/btn_reproduce"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
             android:layout_weight="1"
-            android:background="@color/colorAccent"
+            android:background="@drawable/rounded_border_accent"
             android:text="RE-PRODUCE RECEIPT"
+            android:textColor="@color/whitetext" />
+
+        <Button
+            android:id="@+id/btn_reverse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_border_accent"
+            android:text="RE-VERSE TRANSACTION"
             android:textColor="@color/whitetext" />
     </LinearLayout>
 

@@ -13,17 +13,38 @@ public class TransactionsPojo implements Serializable {
     private String transaction_total_sp;
     private String transaction_total_bp;
     private String transaction_quantity;
+    private String transaction_time;
+    private String transaction_cash_in;
 
     public TransactionsPojo() {
     }
 
-    public TransactionsPojo(int transaction_id, String transaction_date, String transaction_items, String transaction_total_sp, String transaction_total_bp, String transaction_quantity) {
+    public TransactionsPojo(int transaction_id, String transaction_date, String transaction_items, String transaction_total_sp,
+                            String transaction_total_bp, String transaction_quantity, String transaction_time) {
         this.transaction_id = transaction_id;
         this.transaction_date = transaction_date;
         this.transaction_items = transaction_items;
         this.transaction_total_sp = transaction_total_sp;
         this.transaction_total_bp = transaction_total_bp;
         this.transaction_quantity = transaction_quantity;
+        this.transaction_time = transaction_time;
+
+    }
+
+    public String getTransaction_cash_in() {
+        return transaction_cash_in;
+    }
+
+    public void setTransaction_cash_in(String transaction_cash_in) {
+        this.transaction_cash_in = transaction_cash_in;
+    }
+
+    public String getTransaction_time() {
+        return transaction_time;
+    }
+
+    public void setTransaction_time(String transaction_time) {
+        this.transaction_time = transaction_time;
     }
 
     public String getTransaction_total_bp() {

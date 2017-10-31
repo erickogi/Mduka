@@ -46,18 +46,18 @@ public class StockItemsPojo implements Serializable {
 //    }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    public StockItemsPojo(int item_id, String item_name, String item_quantity, String item_unit_type, String item_buying_price, String item_selling_price, String item_category, String item_discount, String item_image, String fav) {
+        this.item_id = item_id;
+        this.item_name = item_name;
+        this.item_quantity = item_quantity;
+        this.item_unit_type = item_unit_type;
+        this.item_buying_price = item_buying_price;
+        this.item_selling_price = item_selling_price;
+        this.item_category = item_category;
+        this.item_discount = item_discount;
+        this.item_image = item_image;
+        this.fav = fav;
+    }
 
     public StockItemsPojo(int item_id, String item_name, String item_quantity, String item_unit_type, String item_selling_price, String item_category) {
         this.item_id = item_id;

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_item_share"
+
+        android:title="Share Item" />
+    <item
+        android:id="@+id/nav_item_copy"
+
+        android:title="Copy Item" />
+    <!--<item-->
+    <!--android:id="@+id/nav_favorites"-->
+
+    <!--android:title="Add Favorites" />-->
+    <!--<item-->
+    <!--android:id="@+id/nav_message"-->
+
+    <!--android:title="Send Message" />-->
+</menu>

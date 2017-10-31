@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -16,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="2dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -26,7 +28,15 @@
                 android:orientation="horizontal"
                 android:paddingTop="6dp">
 
+                <ImageView
+                    android:id="@+id/img_fav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@android:drawable/star_off" />
+
                 <TextView
+
                     android:id="@+id/item_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -37,29 +47,34 @@
                     android:textAlignment="center"
                     android:textColor="@color/blacktext" />
 
+
                 <ImageView
-                    android:id="@+id/img_fav"
+                    android:id="@+id/icon_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@android:drawable/star_off" />
 
+
+                    android:layout_gravity="top|end"
+                    android:gravity="end"
+                    app:srcCompat="@drawable/ic_more_vert_black_24dp" />
 
             </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/item_image"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="6dp"
                     android:layout_marginStart="6dp"
+                    app:civ_border_color="@color/colorAccent"
+                    app:civ_border_width="1dp"
 
                     />
 
@@ -83,24 +98,29 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
+                            android:text="Qty : 200 pcs"
 
-                            android:text="Qty : 200 pcs" />
+                            android:textColor="@color/blacktext" />
 
                         <TextView
                             android:id="@+id/item_price"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:paddingTop="6dp"
-                            android:text="'sell @ Ksh : 250" />
+                            android:text="'sell @ Ksh : 250"
+                            android:textColor="@color/blacktext" />
 
                         <TextView
                             android:id="@+id/item_buying_price"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:paddingTop="6dp"
-                            android:text="'bought @  Ksh : 250" />
+                            android:text="'bought @  Ksh : 250"
+                            android:textColor="@color/blacktext" />
 
 
                     </LinearLayout>
@@ -122,40 +142,71 @@
 
                         <TextView
                             android:id="@+id/item_category"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal|center_vertical"
                             android:paddingTop="6dp"
-                            android:text="Cat : Mobile Phones" />
+                            android:text="Cat : Mobile Phones"
+                            android:textColor="@color/blacktext" />
 
-                        <TextView
-                            android:id="@+id/item_discount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:paddingTop="6dp"
-                            android:text="Discount : 20%" />
+                        <!--<TextView-->
+                        <!--android:id="@+id/item_discount"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginTop="6dp"-->
+                        <!--android:paddingTop="6dp"-->
+                        <!--android:text="Discount : 20%" />-->
 
                         <TextView
                             android:id="@+id/item_profit"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:paddingTop="6dp"
-                            android:text="Profit : 1000  kshs" />
+                            android:text="Profit : 1000  kshs"
+                            android:textColor="@color/blacktext" />
 
 
                     </LinearLayout>
 
                 </LinearLayout>
+
+
             </RelativeLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <Button
+                    android:id="@+id/btn_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimaryDark"
+                    android:text="@string/edit" />
+
+                <Button
+                    android:id="@+id/btn_delete"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimaryDark"
+                    android:text="@string/delete" />
+
+            </LinearLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/line" />
-
         </LinearLayout>
 
 

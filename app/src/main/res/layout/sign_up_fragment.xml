@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark">
+
+    <RelativeLayout
+        android:id="@+id/signup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="100dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <android.support.design.widget.TextInputLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginStart="4dp"
+                    android:padding="8dp"
+                    app:hintTextAppearance="@style/EditTextHintStyle">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txt_firstname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="4dp"
+                        android:hint="@string/first_name_hint"
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/white" />
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginStart="4dp"
+                    android:padding="8dp">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txt_lastname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:hint="@string/last_name_hint"
+                        android:inputType="textPersonName"
+                        android:textColor="@android:color/white" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginStart="4dp"
+                    android:padding="8dp">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txt_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:hint="Mobile"
+                        android:inputType="phone"
+                        android:textColor="@android:color/white" />
+                </android.support.design.widget.TextInputLayout>
+
+                <!--<android.support.design.widget.TextInputLayout-->
+
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="8dp"-->
+                <!--android:layout_marginEnd="4dp"-->
+                <!--android:layout_marginStart="4dp"-->
+                <!--app:hintTextAppearance="@style/EditTextHintStyle"-->
+                <!--&gt;-->
+
+                <!--<android.support.design.widget.TextInputEditText-->
+                <!--android:id="@+id/txt_password"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+
+                <!--android:layout_marginTop="4dp"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:hint="@string/password_hint"-->
+                <!--android:inputType="textPassword" />-->
+                <!--</android.support.design.widget.TextInputLayout>-->
+
+                <!--<android.support.design.widget.TextInputLayout-->
+
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="8dp"-->
+                <!--android:layout_marginEnd="4dp"-->
+                <!--android:layout_marginStart="4dp"-->
+                <!--&gt;-->
+
+                <!--<android.support.design.widget.TextInputEditText-->
+                <!--android:id="@+id/txt_confirm_password"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="4dp"-->
+                <!--android:textColor="@android:color/white"-->
+                <!--android:hint="Confirm Password"-->
+                <!--android:inputType="textPassword" />-->
+                <!--</android.support.design.widget.TextInputLayout>-->
+
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="45dp"
+            android:gravity="bottom"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <Button
+                android:id="@+id/btn_register"
+
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/rounded_border_accent"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="Login"
+                android:textAlignment="center"
+                android:textColor="@android:color/white" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/otp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="A verification code will be sent automatically.\nPlease dont close the application"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edt_code"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/textView"
+            android:layout_centerHorizontal="true"
+
+            android:layout_marginTop="12dp"
+            android:background="@android:color/white" />
+
+        <LinearLayout
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_code"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            android:padding="14dp">
+
+            <Button
+                android:id="@+id/btn_resend"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_border_accent"
+                android:text="Re-send " />
+
+            <Button
+                android:id="@+id/btn_verify"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_border_accent"
+                android:enabled="false"
+                android:text="Verify " />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/btn"
+            android:layout_margin="12dp"
+            android:padding="4dp"
+            app:srcCompat="@drawable/ic_keyboard_return_black_24dp" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -43,8 +43,10 @@
                 <android.support.v7.widget.SearchView
                     android:id="@+id/search_bar"
                     android:layout_width="match_parent"
-
                     android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+
+                    android:layout_marginStart="8dp"
 
                     android:background="@drawable/rounded_border_transaparent" />
                 <!--<View-->
@@ -58,7 +60,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:padding="2dp"
-                    android:text="Trans : 6 , Bp : 32000 , Sp : 40000 , P : 8000"
+                    android:text="Trans : 6 , Bp : 32000 ,\n Sp : 40000 , P : 8000"
+                    android:textAlignment="center"
                     android:textColor="@color/blacktext"
                     android:textSize="12sp" />
                 <!--<ImageButton-->

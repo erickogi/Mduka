@@ -7,15 +7,19 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Eric on 8/28/2017.
  */
 
 public class DbOperations {
-    Context context;
+    private Context context;
     private DbClass dbHandler;
+    private boolean successful = false;
+    private double returnValueDouble = 0.0;
 
     public DbOperations(Context context) {
         dbHandler = new DbClass(context);
@@ -210,7 +214,7 @@ public class DbOperations {
 
     public String getItemQuantity(int id) {
         SQLiteDatabase db = dbHandler.getReadableDatabase();
-        String quantity = "";
+        String quantity = "0";
         String QUERY = "SELECT * FROM  mduka_items_stock WHERE item_id ='" + id + "'";
         Cursor cursor = db.rawQuery(QUERY, null);
         if (!cursor.isLast()) {
@@ -223,10 +227,10 @@ public class DbOperations {
         }
         db.close();
         if (cursor == null) {
-            return null;
+            return "0";
         } else if (!cursor.moveToFirst()) {
             cursor.close();
-            return null;
+            return "0";
         }
         return quantity;
 
@@ -266,7 +270,9 @@ public class DbOperations {
 
     public boolean deleteItem(int rowId) {
         SQLiteDatabase db = dbHandler.getWritableDatabase();
-        return db.delete("mduka_items_stock", "item_id" + "= '" + rowId + "' ", null) > 0;
+        successful = db.delete("mduka_items_stock", "item_id" + "= '" + rowId + "' ", null) > 0;
+        db.close();
+        return successful;
     }
 
     public boolean updateItemQuantity(int id, String chan) {
@@ -275,7 +281,11 @@ public class DbOperations {
             ContentValues cv = new ContentValues();
             cv.put("item_quantity", chan);
 
-            return db.update("mduka_items_stock", cv, "item_id ='" + id + "'", null) > 0;
+            successful = db.update("mduka_items_stock", cv, "item_id ='" + id + "'", null) > 0;
+            db.close();
+            return successful;
+
+
         } catch (Exception m) {
             m.printStackTrace();
             Log.d("mjk", m.toString());
@@ -289,7 +299,9 @@ public class DbOperations {
             ContentValues cv = new ContentValues();
             cv.put("favorite", chan);
 
-            return db.update("mduka_items_stock", cv, "item_id ='" + id + "'", null) > 0;
+            successful = db.update("mduka_items_stock", cv, "item_id ='" + id + "'", null) > 0;
+            db.close();
+            return successful;
         } catch (Exception m) {
             m.printStackTrace();
             Log.d("mjk", m.toString());
@@ -309,14 +321,17 @@ public class DbOperations {
         cv.put("item_discount", data.getItem_discount());
         cv.put("item_image", data.getItem_image());
 
-        return db.update("mduka_items_stock", cv, "item_id ='" + data.getItem_id() + "'", null) > 0;
+        successful = db.update("mduka_items_stock", cv, "item_id ='" + data.getItem_id() + "'", null) > 0;
+        db.close();
+        return successful;
 
     }
 
     public double getItemsCount() {
         SQLiteDatabase db = dbHandler.getReadableDatabase();
-        return (double) DatabaseUtils.longForQuery(db, "SELECT Count(*)  FROM mduka_items_stock ", null);
-
+        returnValueDouble = (double) DatabaseUtils.longForQuery(db, "SELECT Count(*)  FROM mduka_items_stock ", null);
+        db.close();
+        return returnValueDouble;
     }
 
 
@@ -392,24 +407,32 @@ public class DbOperations {
         cv.put("item_total_buying_price", total_bp);
 
 
-        return db.update("mduka_items_cart", cv, "item_id ='" + item_id + "'", null) > 0;
+        successful = db.update("mduka_items_cart", cv, "item_id ='" + item_id + "'", null) > 0;
+        db.close();
+        return successful;
 
 
     }
 
     public int getNoOfItemsInCart() {
         SQLiteDatabase db = dbHandler.getReadableDatabase();
-        return (int) DatabaseUtils.longForQuery(db, "SELECT Count(*)  FROM mduka_items_cart ", null);
+
+        int returnValueInt = (int) DatabaseUtils.longForQuery(db, "SELECT Count(*)  FROM mduka_items_cart ", null);
+        return returnValueInt;
     }
 
     public boolean clearCart() {
         SQLiteDatabase db = dbHandler.getWritableDatabase();
-        return db.delete("mduka_items_cart", null, null) > 0;
+        successful = db.delete("mduka_items_cart", null, null) > 0;
+        db.close();
+        return successful;
     }
 
     public boolean deleteCartItem(int rowId) {
         SQLiteDatabase db = dbHandler.getWritableDatabase();
-        return db.delete("mduka_items_cart", "item_id" + "= '" + rowId + "' ", null) > 0;
+        successful = db.delete("mduka_items_cart", "item_id" + "= '" + rowId + "' ", null) > 0;
+        db.close();
+        return successful;
     }
 
     public ArrayList<StockItemsPojo> getAllItemsInCart() {
@@ -463,12 +486,15 @@ public class DbOperations {
 
     public double sumOfTotalPricesOfItemsInCart() {
         SQLiteDatabase db = dbHandler.getReadableDatabase();
-        return (double) DatabaseUtils.longForQuery(db, "SELECT SUM(item_total_selling_price)  FROM mduka_items_cart ", null);
+        returnValueDouble = (double) DatabaseUtils.longForQuery(db, "SELECT SUM(item_total_selling_price)  FROM mduka_items_cart ", null);
+        return returnValueDouble;
     }
 
     public double sumOfTotalBpPricesOfItemsInCart() {
         SQLiteDatabase db = dbHandler.getReadableDatabase();
-        return (double) DatabaseUtils.longForQuery(db, "SELECT SUM(item_total_buying_price)  FROM mduka_items_cart ", null);
+
+        returnValueDouble = (double) DatabaseUtils.longForQuery(db, "SELECT SUM(item_total_buying_price)  FROM mduka_items_cart ", null);
+        return returnValueDouble;
     }
 
 
@@ -570,13 +596,18 @@ public class DbOperations {
 
     public boolean deleteCategory(int rowId) {
         SQLiteDatabase db = dbHandler.getWritableDatabase();
-        return db.delete("mduka_items_category", "item_id" + "= '" + rowId + "' ", null) > 0;
+        successful = db.delete("mduka_items_category", "item_id" + "= '" + rowId + "' ", null) > 0;
+        db.close();
+        return successful;
     }
 
 
     public boolean insertTransaction(TransactionsPojo data) {
         boolean success = false;
 
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
         SQLiteDatabase db = dbHandler.getWritableDatabase();
         ContentValues values = new ContentValues();
         // values.put("item_id", data.getItem_id());
@@ -587,6 +618,7 @@ public class DbOperations {
         values.put("transaction_total_sp", data.getTransaction_total_sp());
         values.put("transaction_total_bp", data.getTransaction_total_bp());
         values.put("transaction_quantity", data.getTransaction_quantity());
+        values.put("transaction_time", dateFormat.format(date));
 
 
         if (db.insert("mduka_transactions", null, values) >= 1) {
@@ -598,6 +630,7 @@ public class DbOperations {
         return success;
     }
 
+    //"+Keys.KEY_TRANSACTION_TIME+">= '"+FDATE+"'
     public ArrayList<TransactionsPojo> getAllTransactions(String trans_id, String date) {
         //Open connection to read only
         SQLiteDatabase db = dbHandler.getReadableDatabase();
@@ -619,6 +652,7 @@ public class DbOperations {
                 pojo.setTransaction_total_sp(cursor.getString(3));
                 pojo.setTransaction_total_bp(cursor.getString(4));
                 pojo.setTransaction_quantity(cursor.getString(5));
+                pojo.setTransaction_time(cursor.getString(6));
 
                 data.add(pojo);
 
@@ -647,6 +681,175 @@ public class DbOperations {
         result[2] = (double) DatabaseUtils.longForQuery(db, "SELECT SUM(transaction_quantity) FROM  mduka_transactions  WHERE transaction_id LIKE '%" + trans_id + "%' AND transaction_date LIKE '%" + date + "%' ", null);
         db.close();
         return result;
+    }
+
+    public boolean deleteTransaction(int transaction_id) {
+        SQLiteDatabase db = dbHandler.getWritableDatabase();
+        successful = db.delete("mduka_transactions", "transaction_id" + "= '" + transaction_id + "' ", null) > 0;
+        db.close();
+        return successful;
+    }
+
+
+    public ArrayList<TransactionsPojo> getAllTransactionsInRange(String trans_id, Date dFrom, Date dTo) {
+        //Open connection to read only
+        SQLiteDatabase db = dbHandler.getReadableDatabase();
+
+        // AND transaction_date <='"+dTo+"'
+        ArrayList<TransactionsPojo> data = new ArrayList<>();
+        String QUERY = "SELECT * FROM  mduka_transactions  WHERE transaction_id LIKE '%" + trans_id + "%'" +
+                " AND transaction_time >='" + dFrom + "'   ";
+
+
+        Cursor cursor = db.rawQuery(QUERY, null);
+
+        if (!cursor.isLast()) {
+
+            while (cursor.moveToNext()) {
+                TransactionsPojo pojo = new TransactionsPojo();
+                pojo.setTransaction_id(cursor.getInt(0));
+                pojo.setTransaction_date(cursor.getString(1));
+                pojo.setTransaction_items(cursor.getString(2));
+                pojo.setTransaction_total_sp(cursor.getString(3));
+                pojo.setTransaction_total_bp(cursor.getString(4));
+                pojo.setTransaction_quantity(cursor.getString(5));
+                pojo.setTransaction_time(cursor.getString(6));
+
+                data.add(pojo);
+
+            }
+        }
+        db.close();
+        // looping through all rows and adding to list
+
+        if (cursor == null) {
+            return null;
+        } else if (!cursor.moveToFirst()) {
+            cursor.close();
+            return null;
+        }
+        return data;
+    }
+
+    //ORDER BY transaction_id DESC
+    public ArrayList<TransactionsPojo> getAllTransactionsInWeek(String trans_id) {
+        //Open connection to read only
+        SQLiteDatabase db = dbHandler.getReadableDatabase();
+
+        // AND transaction_date <='"+dTo+"'
+        ArrayList<TransactionsPojo> data = new ArrayList<>();
+        String QUERY = "SELECT * FROM  mduka_transactions  WHERE transaction_id LIKE '%" + trans_id + "%'" +
+                " AND transaction_time >= DATE ('now','weekday 0','-7 days')    ";
+
+
+        Cursor cursor = db.rawQuery(QUERY, null);
+
+        if (!cursor.isLast()) {
+
+            while (cursor.moveToNext()) {
+                TransactionsPojo pojo = new TransactionsPojo();
+                pojo.setTransaction_id(cursor.getInt(0));
+                pojo.setTransaction_date(cursor.getString(1));
+                pojo.setTransaction_items(cursor.getString(2));
+                pojo.setTransaction_total_sp(cursor.getString(3));
+                pojo.setTransaction_total_bp(cursor.getString(4));
+                pojo.setTransaction_quantity(cursor.getString(5));
+                pojo.setTransaction_time(cursor.getString(6));
+
+                data.add(pojo);
+
+            }
+        }
+        db.close();
+        // looping through all rows and adding to list
+
+        if (cursor == null) {
+            return null;
+        } else if (!cursor.moveToFirst()) {
+            cursor.close();
+            return null;
+        }
+        return data;
+    }
+
+    public ArrayList<TransactionsPojo> getAllTransactionsInMonth(String trans_id) {
+        //Open connection to read only
+        SQLiteDatabase db = dbHandler.getReadableDatabase();
+
+        // AND transaction_date <='"+dTo+"'
+        ArrayList<TransactionsPojo> data = new ArrayList<>();
+        String QUERY = "SELECT * FROM  mduka_transactions  WHERE transaction_id LIKE '%" + trans_id + "%'" +
+                " AND strftime('%m',transaction_time)= strftime('%m',date('now'))  ";
+
+
+        Cursor cursor = db.rawQuery(QUERY, null);
+
+        if (!cursor.isLast()) {
+
+            while (cursor.moveToNext()) {
+                TransactionsPojo pojo = new TransactionsPojo();
+                pojo.setTransaction_id(cursor.getInt(0));
+                pojo.setTransaction_date(cursor.getString(1));
+                pojo.setTransaction_items(cursor.getString(2));
+                pojo.setTransaction_total_sp(cursor.getString(3));
+                pojo.setTransaction_total_bp(cursor.getString(4));
+                pojo.setTransaction_quantity(cursor.getString(5));
+                pojo.setTransaction_time(cursor.getString(6));
+
+                data.add(pojo);
+
+            }
+        }
+        db.close();
+        // looping through all rows and adding to list
+
+        if (cursor == null) {
+            return null;
+        } else if (!cursor.moveToFirst()) {
+            cursor.close();
+            return null;
+        }
+        return data;
+    }
+
+    public ArrayList<TransactionsPojo> getAllTransactionsInToday(String trans_id, Date dToday) {
+        //Open connection to read only
+        SQLiteDatabase db = dbHandler.getReadableDatabase();
+        // 'start of day','localtime'
+        // AND transaction_date <='"+dTo+"'
+        ArrayList<TransactionsPojo> data = new ArrayList<>();
+        String QUERY = "SELECT * FROM  mduka_transactions  WHERE transaction_id LIKE '%" + trans_id + "%'" +
+                " AND transaction_time >=date('now','1 day')     ";
+
+
+        Cursor cursor = db.rawQuery(QUERY, null);
+
+        if (!cursor.isLast()) {
+
+            while (cursor.moveToNext()) {
+                TransactionsPojo pojo = new TransactionsPojo();
+                pojo.setTransaction_id(cursor.getInt(0));
+                pojo.setTransaction_date(cursor.getString(1));
+                pojo.setTransaction_items(cursor.getString(2));
+                pojo.setTransaction_total_sp(cursor.getString(3));
+                pojo.setTransaction_total_bp(cursor.getString(4));
+                pojo.setTransaction_quantity(cursor.getString(5));
+                pojo.setTransaction_time(cursor.getString(6));
+
+                data.add(pojo);
+
+            }
+        }
+        db.close();
+        // looping through all rows and adding to list
+
+        if (cursor == null) {
+            return null;
+        } else if (!cursor.moveToFirst()) {
+            cursor.close();
+            return null;
+        }
+        return data;
     }
 
 }

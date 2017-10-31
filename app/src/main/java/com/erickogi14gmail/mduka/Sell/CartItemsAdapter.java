@@ -5,11 +5,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.erickogi14gmail.mduka.Db.StockItemsPojo;
 import com.erickogi14gmail.mduka.R;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
@@ -19,10 +21,12 @@ import java.util.ArrayList;
 public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyViewHolder> {
     private Context context;
     private ArrayList<StockItemsPojo> modelList;
+    private cartItemClickListener cartItemClickListener;
 
-    public CartItemsAdapter(Context context, ArrayList<StockItemsPojo> modelList) {
+    public CartItemsAdapter(Context context, ArrayList<StockItemsPojo> modelList, cartItemClickListener cartItemClickListener) {
         this.context = context;
         this.modelList = modelList;
+        this.cartItemClickListener = cartItemClickListener;
     }
 
     @Override
@@ -30,7 +34,7 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
         View itemView = null;
 
         itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cart_item, parent, false);
-        return new MyViewHolder(itemView);
+        return new MyViewHolder(itemView, cartItemClickListener);
     }
 
     @Override
@@ -51,7 +55,6 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
         }
     }
 
-
     public void updateList(ArrayList<StockItemsPojo> list) {
         modelList = list;
         notifyDataSetChanged();
@@ -62,14 +65,40 @@ public class CartItemsAdapter extends RecyclerView.Adapter<CartItemsAdapter.MyVi
         notifyItemChanged(position);
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView txtItemName, txtItemPrice, txtItemTotalPrice;
+        Button btnRemove, btnChange;
+        private WeakReference<cartItemClickListener> listenerWeakReference;
 
-        public MyViewHolder(View itemView) {
+
+        public MyViewHolder(View itemView, cartItemClickListener cartItemClickListener) {
             super(itemView);
+            listenerWeakReference = new WeakReference<cartItemClickListener>(cartItemClickListener);
+
             txtItemName = (TextView) itemView.findViewById(R.id.item_name);
             txtItemTotalPrice = (TextView) itemView.findViewById(R.id.item_total_price);
             txtItemPrice = (TextView) itemView.findViewById(R.id.item_price);
+
+            btnChange = (Button) itemView.findViewById(R.id.btn_change);
+            btnRemove = (Button) itemView.findViewById(R.id.btn_remove);
+
+            btnRemove.setOnClickListener(this);
+            btnChange.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_remove:
+                    listenerWeakReference.get().onBtnRemoveClicked(getAdapterPosition());
+
+                    break;
+                case R.id.btn_change:
+                    listenerWeakReference.get().onBtnChangeClicked(getAdapterPosition());
+
+
+                    break;
+            }
         }
     }
 }
