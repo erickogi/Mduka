@@ -30,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.erickogi14gmail.mduka.Controller;
 import com.erickogi14gmail.mduka.Db.DbOperations;
@@ -660,14 +661,7 @@ public class fragment_cart extends Fragment {
 
     }
 
-    private void viewPdf(File myFile) {
-        // dialog.dismiss();
-        progressDialog.dismiss();
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
-    }
+
 
     private void emailNote() {
         Intent email = new Intent(Intent.ACTION_SEND);
@@ -717,16 +711,33 @@ public class fragment_cart extends Fragment {
                 .setNegativeButton("No", dialogClickListener).show();
     }
 
-    public void shareReciept(File f) {
-        dialog.dismiss();
-        progressDialog.dismiss();
-        Uri uri = Uri.fromFile(f);
-        Intent share = new Intent();
-        share.setAction(Intent.ACTION_SEND);
-        share.setType("application/pdf");
-        share.putExtra(Intent.EXTRA_STREAM, uri);
+    private void viewPdf(File myFile) {
+        // dialog.dismiss();
+        try {
+            progressDialog.dismiss();
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
+        } catch (Exception nm) {
+            Toast.makeText(getContext(), "You dont have any pdf viewer", Toast.LENGTH_LONG).show();
+        }
+    }
 
-        getContext().startActivity(share);
+    public void shareReciept(File f) {
+        try {
+            dialog.dismiss();
+            progressDialog.dismiss();
+            Uri uri = Uri.fromFile(f);
+            Intent share = new Intent();
+            share.setAction(Intent.ACTION_SEND);
+            share.setType("application/pdf");
+            share.putExtra(Intent.EXTRA_STREAM, uri);
+
+            getContext().startActivity(share);
+        } catch (Exception nm) {
+
+        }
     }
 
     private class Back extends AsyncTask<String, Void, File> {

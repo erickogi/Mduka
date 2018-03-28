@@ -203,24 +203,32 @@ public class Transaction_details extends AppCompatActivity {
     }
 
     private void viewPdf(File myFile) {
-        dialog.dismiss();
-        progressDialog.dismiss();
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(intent);
+        try {
+            dialog.dismiss();
+            progressDialog.dismiss();
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(Uri.fromFile(myFile), "application/pdf");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+            startActivity(intent);
+        } catch (Exception nm) {
+            nm.printStackTrace();
+        }
     }
 
     public void shareReciept(File f) {
-        dialog.dismiss();
-        progressDialog.dismiss();
-        Uri uri = Uri.fromFile(f);
-        Intent share = new Intent();
-        share.setAction(Intent.ACTION_SEND);
-        share.setType("application/pdf");
-        share.putExtra(Intent.EXTRA_STREAM, uri);
+        try {
+            dialog.dismiss();
+            progressDialog.dismiss();
+            Uri uri = Uri.fromFile(f);
+            Intent share = new Intent();
+            share.setAction(Intent.ACTION_SEND);
+            share.setType("application/pdf");
+            share.putExtra(Intent.EXTRA_STREAM, uri);
 
-        startActivity(share);
+            startActivity(share);
+        } catch (Exception nm) {
+            nm.printStackTrace();
+        }
     }
 
 

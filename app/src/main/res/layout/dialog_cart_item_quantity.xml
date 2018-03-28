@@ -33,6 +33,7 @@
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:background="@drawable/rounded_border_transaparent"
+            android:inputType="number"
             android:textAlignment="center" />
 
         <ImageButton

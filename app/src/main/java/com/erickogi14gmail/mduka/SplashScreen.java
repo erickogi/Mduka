@@ -10,6 +10,7 @@ import com.erickogi14gmail.mduka.Prefrence.Prefrence;
 
 public class SplashScreen extends AppCompatActivity {
     private static int spalsh_time_out = 500;
+    boolean debug = true;
     private Prefrence prefManager;
 
     @Override
@@ -20,22 +21,31 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (prefManager.isLoggedIn()) {
+
+                if (!debug) {
+                    if (prefManager.isLoggedIn()) {
+                        Intent intent = new Intent(SplashScreen.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+
+                        finish();
+                    }//else if(prefManager.isWaitingForSms()){
+
+                    //}
+                    else {
+                        Intent intent = new Intent(SplashScreen.this, Login.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+
+                        finish();
+
+                    }
+                } else {
                     Intent intent = new Intent(SplashScreen.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
 
                     finish();
-                }//else if(prefManager.isWaitingForSms()){
-
-                //}
-                else {
-                    Intent intent = new Intent(SplashScreen.this, Login.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-
-                    finish();
-
                 }
             }
 

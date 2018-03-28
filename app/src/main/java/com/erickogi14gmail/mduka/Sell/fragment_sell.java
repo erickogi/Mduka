@@ -129,8 +129,8 @@ public class fragment_sell extends Fragment {
         } else {
             linearLayoutEmpty.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
-            populateItemsDb();
-            sellListAdapter.updateList(dbOperations.getAllItems(search));
+            // populateItemsDb();
+            // sellListAdapter.updateList(dbOperations.getAllItems(search));
         }
         imageButtonAdd.setOnClickListener(new View.OnClickListener() {
             @Override

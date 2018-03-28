@@ -1,7 +1,6 @@
 package com.erickogi14gmail.mduka;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,7 +21,6 @@ import android.widget.Toast;
 import com.erickogi14gmail.mduka.Db.DbOperations;
 import com.erickogi14gmail.mduka.Db.StockItemsPojo;
 import com.erickogi14gmail.mduka.Items.fragment_items;
-import com.erickogi14gmail.mduka.Prefrence.Settings;
 import com.erickogi14gmail.mduka.Sell.fragmentSellMain;
 import com.erickogi14gmail.mduka.Sell.fragment_cart;
 import com.erickogi14gmail.mduka.Transactions.fragment_transactions;
@@ -89,10 +87,10 @@ public class MainActivity extends AppCompatActivity
                 setUpView();
             } else {
 
-                SharedPreferences sharedPreferences = getSharedPreferences("testItems", Context.MODE_PRIVATE);
+                //SharedPreferences sharedPreferences = getSharedPreferences("testItems", Context.MODE_PRIVATE);
 
 
-                itemsFilled = sharedPreferences.getBoolean("testItemsFilled", false);
+                // itemsFilled = sharedPreferences.getBoolean("testItemsFilled", false);
 
                 fragment = new fragmentSellMain();
                 FragmentManager fragmentManager = getSupportFragmentManager();
@@ -261,9 +259,10 @@ public class MainActivity extends AppCompatActivity
             popOutFragments();
             fragment = new fragment_transactions();
             setUpView();
-        } else if (id == R.id.nav_settings) {
-            startActivity(new Intent(MainActivity.this, Settings.class));
         }
+//        } else if (id == R.id.nav_settings) {
+//            startActivity(new Intent(MainActivity.this, Settings.class));
+//        }
 //         else if (id == R.id.nav_help) {
 //              //   startActivity(new Intent(MainActivity.this, Reports.class));
 //        } else if (id == R.id.nav_share) {
